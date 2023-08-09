@@ -2,7 +2,7 @@ import os
 import logging
 import asyncio
 from aiogram import Dispatcher, Bot
-from handlers import commands
+from handlers import commands, inline
 
 async def main():
     # Get API Token
@@ -16,7 +16,7 @@ async def main():
     logging.basicConfig(level=logging.INFO)
 
     # Include routers
-    dp.include_router(commands.router)
+    dp.include_routers(commands.router, inline.router)
 
     # Droup updates and start polling
     await bot.delete_webhook(drop_pending_updates=True)

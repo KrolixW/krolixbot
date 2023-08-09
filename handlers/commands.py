@@ -1,11 +1,16 @@
-from aiogram import Router, F
+from aiogram import Router, F, html
 from aiogram.types import Message
 from aiogram.filters import Command, CommandStart, CommandObject
 
 router = Router()
 
-@router.message(Command('start'))
+@router.message(CommandStart())
 async def start_command(message: Message):
-    await message.reply(f'''Hello, {message.from_user.first_name}!
-    This is my demo bot do show what I can do.
-    Please prceed. <3''')
+    await message.reply(f'''<b>Hello, {message.from_user.full_name}!</b>
+This is my demo bot to show what I can do.
+Please prceed.''',parse_mode='HTML')
+
+@router.message(Command('repeat'))
+async def repeat_command(message: Message, command: CommandObject):
+    await message.reply(f'You said: {html.italic(command.args)}',
+                        parse_mode='HTML')

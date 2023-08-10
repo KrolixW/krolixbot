@@ -13,7 +13,7 @@ async def ler_me_google(inline_query: InlineQuery):
         args = inline_query.query.split(';')
         if len(args) >= 2:
             link = f'https://letmegooglethat.com/?q={args[1].replace(" ","+")}'
-            message = f'{args[2]}' if len(args) >= 2 else ''
+            message = f'{args[2]}' if len(args) >= 3 else ''
             link_text = f'{html.link(args[3],link)}' if len(args) >= 4 else link
             desc = args[3] if len(args) >= 4 else link
             result = InlineQueryResultArticle(

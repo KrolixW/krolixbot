@@ -16,7 +16,8 @@ async def main():
     logging.basicConfig(level=logging.INFO)
 
     # Include routers
-    dp.include_routers(commands.router, inline.router)
+    dp.include_routers(commands.router,
+                       inline.router)
 
     # Droup updates and start polling
     await bot.delete_webhook(drop_pending_updates=True)

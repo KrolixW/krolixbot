@@ -32,13 +32,12 @@ async def ler_me_google(inline_query: InlineQuery):
 async def test_query(inline_query: InlineQuery):
     content = inline_query.id
     result_id = hashlib.sha1(content.encode()).hexdigest()
-    answer = inline_query.query if inline_query.query else 'Empty query'
     results = [InlineQueryResultArticle(
             id=result_id+f'{i}',
-            title=f'Query №{i}',
-            description=f'{html.bold(html.italic(answer))}',
+            title=f'Test №{i}',
+            description=f'This is a test №{i}',
             input_message_content=InputTextMessageContent(
-                message_text=f'{html.bold(html.italic(answer))}',
+                message_text=f'{i}',
                 parse_mode='HTML'
                     )
             ) for i in range(1,11)]

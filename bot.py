@@ -35,6 +35,7 @@ def main():
     # Include routers
     dp.include_routers(commands.router,
                        inline.router)
+    dp.startup.register(on_startup)
 
     app = web.Application()
     webhook_request_handler = SimpleRequestHandler(dispatcher=dp,bot=bot,secret_token=WEBHOOK_SECRET)

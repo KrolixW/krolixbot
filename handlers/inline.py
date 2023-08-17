@@ -45,7 +45,7 @@ async def test_query(inline_query: InlineQuery):
             ) for i in range(1,11)]
     await inline_query.answer(results)
 
-@router.inline_query(F.query == 'quote')
+@router.inline_query((F.query == 'quote') & (F.from_user.id.in_((379832391,))) )
 async def quote_query(inline_query: InlineQuery, qapi_url):
     response = requests.get(f'{qapi_url}')
     quotes = response.json()['payload']

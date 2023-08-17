@@ -28,7 +28,7 @@ def main():
 
     # Initialize bot and dispatcher
     bot = Bot(token=API_TOKEN)
-    dp = Dispatcher(qapi_url=QAPI_URL)
+    dp = Dispatcher()
 
     # Setup logging
     logging.basicConfig(level=logging.INFO)
@@ -39,7 +39,7 @@ def main():
     dp.startup.register(on_startup)
 
     app = web.Application()
-    webhook_request_handler = SimpleRequestHandler(dispatcher=dp,bot=bot,secret_token=WEBHOOK_SECRET)
+    webhook_request_handler = SimpleRequestHandler(dispatcher=dp,bot=bot,secret_token=WEBHOOK_SECRET, qapi_url = QAPI_URL)
     webhook_request_handler.register(app, path=WEBHOOK_PATH)
 
     setup_application(app, dp, bot=bot)

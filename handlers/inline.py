@@ -47,7 +47,7 @@ async def test_query(inline_query: InlineQuery):
 
 @router.inline_query(F.query == 'quote')
 async def quote_query(inline_query: InlineQuery, qapi_url):
-    response = requests.get(qapi_url)
+    response = requests.get(f'{qapi_url}')
     quotes = response.json()
     offset = int(inline_query.offset) if inline_query.offset else 1
     results = []

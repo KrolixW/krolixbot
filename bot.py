@@ -18,7 +18,7 @@ WEB_SERVER_PORT = getenv('WEB_SERVER_PORT')
 WEBHOOK_PATH = getenv('WEBHOOK_PATH')
 BASE_WEBHOOK_URL = getenv('BASE_WEBHOOK_URL')
 WEBHOOK_SECRET = getenv('WEBHOOK_SECRET')
-QAPI_URL = getenv('WEBHOOK_SECRET')
+QAPI_URL = getenv('QAPI_URL')
 
 async def on_startup(bot: Bot):
     await bot.set_webhook(f'{BASE_WEBHOOK_URL}{WEBHOOK_PATH}',secret_token=WEBHOOK_SECRET)

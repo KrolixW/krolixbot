@@ -39,10 +39,10 @@ def main():
     dp.startup.register(on_startup)
 
     app = web.Application()
-    webhook_request_handler = SimpleRequestHandler(dispatcher=dp,bot=bot,secret_token=WEBHOOK_SECRET,qapi_url = QAPI_URL)
+    webhook_request_handler = SimpleRequestHandler(dispatcher=dp,bot=bot,secret_token=WEBHOOK_SECRET)
     webhook_request_handler.register(app, path=WEBHOOK_PATH)
 
-    setup_application(app, dp, bot=bot)
+    setup_application(app, dp, bot=bot,qapi_url = QAPI_URL)
 
     web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
 if __name__ == '__main__':

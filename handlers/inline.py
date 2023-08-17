@@ -54,10 +54,10 @@ async def quote_query(inline_query: InlineQuery, qapi_url):
     for i in range((offset-1)*10, offset*10):
         article = InlineQueryResultArticle(
                 id = f'quote_{i}',
-                title = quotes[i]['created_by']['name'],
+                title = quotes[i]['quote_by']['name'],
                 description = quotes[i]['quote'],
                 input_message_content=InputTextMessageContent(
-                    message_text=f'{html.italic(quotes[i]["quote"])}\n\t\t {quotes[i]["created_by"]["name"]}',
+                    message_text=f'{html.italic(quotes[i]["quote"])}\n\t\t {quotes[i]["quote_by"]["name"]}',
                     parse_mode='HTML')
                 )
         results.append(article)

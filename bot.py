@@ -18,6 +18,7 @@ WEB_SERVER_PORT = getenv('WEB_SERVER_PORT')
 WEBHOOK_PATH = getenv('WEBHOOK_PATH')
 BASE_WEBHOOK_URL = getenv('BASE_WEBHOOK_URL')
 WEBHOOK_SECRET = getenv('WEBHOOK_SECRET')
+QAPI_URL = getenv('WEBHOOK_SECRET')
 
 async def on_startup(bot: Bot):
     await bot.set_webhook(f'{BASE_WEBHOOK_URL}{WEBHOOK_PATH}',secret_token=WEBHOOK_SECRET)
@@ -38,7 +39,7 @@ def main():
     dp.startup.register(on_startup)
 
     app = web.Application()
-    webhook_request_handler = SimpleRequestHandler(dispatcher=dp,bot=bot,secret_token=WEBHOOK_SECRET)
+    webhook_request_handler = SimpleRequestHandler(dispatcher=dp,bot=bot,secret_token=WEBHOOK_SECRET,qapi_url = QAPI_URL)
     webhook_request_handler.register(app, path=WEBHOOK_PATH)
 
     setup_application(app, dp, bot=bot)

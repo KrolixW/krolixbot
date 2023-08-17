@@ -1,4 +1,6 @@
 import hashlib
+from aiogram.enums import parse_mode
+import requests
 from aiogram import Router, F, html
 from aiogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 
@@ -42,3 +44,21 @@ async def test_query(inline_query: InlineQuery):
                     )
             ) for i in range(1,11)]
     await inline_query.answer(results)
+
+@router.inline_query(F.query == 'quote')
+async def quote_query(inline_query: InlineQuery, qapi_url):
+    response = requests.get(qapi_url)
+    quotes = response.json()
+    offset = int(inline_query.offset) if inline_query.offset else 1
+    results = []
+    for i in range((offset-1)*10, offset*10):
+        article = InlineQueryResultArticle(
+                id = f'quote_{i}',
+                title = quotes[i]['created_by']['name'],
+                description = quotes[i]['quote'],
+                input_message_content=InputTextMessageContent(
+                    message_text=f'{html.italic(quotes[i]["quote"])}\n\t\t {quotes[i]["created_by"]["name"]}',
+                    parse_mode='HTML')
+                )
+        results.append(article)
+    await inline_query.answer(results,next_offset=str(offset+1))

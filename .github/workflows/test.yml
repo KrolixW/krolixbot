@@ -1,1 +1,21 @@
+name: Test Workflow
 
+on:
+  workflow_dispatch:
+     workflow_dispatch:
+    inputs:
+      deployment_git_rev:
+        description: 'SHA or ref (branch, tag, other named thing) to deploy'
+        required: true
+        default: ''
+      target_release_channel:
+        description: 'Release channel (`Pre-prod` or `Prod`)'
+        required: true
+        default: 'Pre-prod'
+      services:
+        description: 'Space-separated list of services to deploy (e.g. dog cat). ALL to deploy all services'
+        required: true
+        default: ''
+jobs:
+  deploy:
+    name: Call redeployment webhook
